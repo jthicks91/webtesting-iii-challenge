@@ -44,6 +44,15 @@ describe("<Controls/>", () => {
   });
 
   describe("disabled button testing", () => {
-    it("close toggle button is disabled if the gate is locked", () => {});
+    it("close toggle button is disabled if the gate is locked", () => {
+      const mockProps = { locked: true };
+      const { getByText } = render(<Controls {...mockProps} />);
+      expect(getByText(/close gate/i)).toHaveAttribute("disabled");
+    });
+    it("locked toggle button is disabled if gate is open", () => {
+      const mockProps = { locked: false };
+      const { getByText } = render(<Controls {...mockProps} />);
+      expect(getByText(/lock gate/i)).toHaveAttribute("disabled");
+    });
   });
 });
